@@ -1,0 +1,211 @@
+Mina Liu-XXX3660
+CIS64B Oracle SQL
+Lab Assignment #3-Due 1/27/16-Handed in 1/27/16
+Email to cislabs05@gmail.com
+
+1)
+SQL QUERY
+=========
+SELECT e.empno "Employee Number", e.ename "Employee Name", e.hiredate "Hiredate", m.ename "Mgr Name"
+FROM emp e, emp m
+WHERE (m.empno=e.mgr)
+AND (m.ename LIKE 'K%') OR (m.ename LIKE 'M%') OR (m.ename LIKE 'S%');
+
+SQL OUTPUT
+==========
+Employee Number Employee N Hiredate  Mgr Name
+--------------- ---------- --------- ----------
+           7839 KING       17-NOV-81 SMITH
+           7698 BLAKE      01-MAY-81 SMITH
+           7782 CLARK      09-JUN-81 SMITH
+           7566 JONES      02-APR-81 SMITH
+           7654 MARTIN     28-SEP-81 SMITH
+           7499 ALLEN      20-FEB-81 SMITH
+           7844 TURNER     08-SEP-81 SMITH
+           7900 JAMES      03-DEC-81 SMITH
+           7521 WARD       22-FEB-81 SMITH
+           7902 FORD       03-DEC-81 SMITH
+           7369 SMITH      17-DEC-80 SMITH
+
+Employee Number Employee N Hiredate  Mgr Name
+--------------- ---------- --------- ----------
+           7788 SCOTT      09-DEC-82 SMITH
+           7876 ADAMS      12-JAN-83 SMITH
+           7934 MILLER     23-JAN-82 SMITH
+           7839 KING       17-NOV-81 SCOTT
+           7698 BLAKE      01-MAY-81 SCOTT
+           7782 CLARK      09-JUN-81 SCOTT
+           7566 JONES      02-APR-81 SCOTT
+           7654 MARTIN     28-SEP-81 SCOTT
+           7499 ALLEN      20-FEB-81 SCOTT
+           7844 TURNER     08-SEP-81 SCOTT
+           7900 JAMES      03-DEC-81 SCOTT
+
+Employee Number Employee N Hiredate  Mgr Name
+--------------- ---------- --------- ----------
+           7521 WARD       22-FEB-81 SCOTT
+           7902 FORD       03-DEC-81 SCOTT
+           7369 SMITH      17-DEC-80 SCOTT
+           7788 SCOTT      09-DEC-82 SCOTT
+           7876 ADAMS      12-JAN-83 SCOTT
+           7934 MILLER     23-JAN-82 SCOTT
+           7839 KING       17-NOV-81 MARTIN
+           7698 BLAKE      01-MAY-81 MARTIN
+           7782 CLARK      09-JUN-81 MARTIN
+           7566 JONES      02-APR-81 MARTIN
+           7654 MARTIN     28-SEP-81 MARTIN
+
+Employee Number Employee N Hiredate  Mgr Name
+--------------- ---------- --------- ----------
+           7499 ALLEN      20-FEB-81 MARTIN
+           7844 TURNER     08-SEP-81 MARTIN
+           7900 JAMES      03-DEC-81 MARTIN
+           7521 WARD       22-FEB-81 MARTIN
+           7902 FORD       03-DEC-81 MARTIN
+           7369 SMITH      17-DEC-80 MARTIN
+           7788 SCOTT      09-DEC-82 MARTIN
+           7876 ADAMS      12-JAN-83 MARTIN
+           7934 MILLER     23-JAN-82 MARTIN
+           7839 KING       17-NOV-81 MILLER
+           7698 BLAKE      01-MAY-81 MILLER
+
+Employee Number Employee N Hiredate  Mgr Name
+--------------- ---------- --------- ----------
+           7782 CLARK      09-JUN-81 MILLER
+           7566 JONES      02-APR-81 MILLER
+           7654 MARTIN     28-SEP-81 MILLER
+           7499 ALLEN      20-FEB-81 MILLER
+           7844 TURNER     08-SEP-81 MILLER
+           7900 JAMES      03-DEC-81 MILLER
+           7521 WARD       22-FEB-81 MILLER
+           7902 FORD       03-DEC-81 MILLER
+           7369 SMITH      17-DEC-80 MILLER
+           7788 SCOTT      09-DEC-82 MILLER
+           7876 ADAMS      12-JAN-83 MILLER
+
+Employee Number Employee N Hiredate  Mgr Name
+--------------- ---------- --------- ----------
+           7934 MILLER     23-JAN-82 MILLER
+           7698 BLAKE      01-MAY-81 KING
+           7782 CLARK      09-JUN-81 KING
+           7566 JONES      02-APR-81 KING
+
+59 rows selected.
+
+2)
+SQL QUERY
+=========
+SELECT ename "Employee Name", e.deptno "Dept Number", dname "Dept Name"
+FROM emp e, dept d
+WHERE e.deptno=d.deptno
+AND e.deptno=(SELECT deptno FROM emp WHERE empno=7844)
+ORDER BY d.deptno;
+
+SQL OUTPUT
+==========
+Employee N Dept Number Dept Name
+---------- ----------- --------------
+BLAKE               30 SALES
+MARTIN              30 SALES
+WARD                30 SALES
+TURNER              30 SALES
+JAMES               30 SALES
+ALLEN               30 SALES
+
+6 rows selected.
+
+3)
+SQL QUERY
+=========
+SELECT distinct d.dname, d.loc
+FROM emp e, dept d
+WHERE e.deptno=d.deptno
+AND e.job LIKE 'CLERK%';
+
+SQL OUTPUT
+==========
+DNAME          LOC
+-------------- -------------
+SALES          CHICAGO
+ACCOUNTING     NEW YORK
+RESEARCH       DALLAS
+
+
+4)
+SQL QUERY
+=========
+INSERT INTO dept (deptno, dname, loc)
+VALUES (50, 'TRAINING', 'SAN FRANCISCO');
+COMMIT WORK;
+
+SQL OUTPUT
+==========
+1 row created.
+
+SQL QUERY
+=========
+SELECT e.empno, e.ename, d.dname, d.loc
+FROM emp e, dept d
+WHERE e.deptno=d.deptno
+AND e.deptno IN (20,50);
+
+SQL OUTPUT
+==========
+     EMPNO ENAME      DNAME          LOC
+---------- ---------- -------------- -------------
+      7566 JONES      RESEARCH       DALLAS
+      7902 FORD       RESEARCH       DALLAS
+      7369 SMITH      RESEARCH       DALLAS
+      7788 SCOTT      RESEARCH       DALLAS
+      7876 ADAMS      RESEARCH       DALLAS
+
+5)
+SQL QUERY
+=========
+INSERT INTO emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+VALUES (7777, 'MINA LIU', 'MANAGER', 7902, '21-JAN-2016', 1000, 50, NULL);
+COMMIT WORK;
+
+SQL OUTPUT
+==========
+1 row created.
+
+Commit complete.
+
+
+SQL QUERY
+=========
+SELECT e.empno, e.ename, d.deptno, d.dname
+FROM emp2 e, dept d
+WHERE e.deptno=d.deptno(+)
+UNION
+SELECT e.empno, e.ename, d.deptno, d.dname
+FROM emp2 e, dept d
+WHERE e.deptno(+)=d.deptno;
+
+SQL OUTPUT
+============
+
+     EMPNO ENAME          DEPTNO DNAME
+---------- ---------- ---------- --------------
+      7369 SMITH              20 RESEARCH
+      7499 ALLEN              30 SALES
+      7521 WARD               30 SALES
+      7566 JONES              20 RESEARCH
+      7654 MARTIN             30 SALES
+      7698 BLAKE              30 SALES
+      7777 MINA LIU
+      7782 CLARK              10 ACCOUNTING
+      7788 SCOTT
+      7839 KING               10 ACCOUNTING
+      7844 TURNER             30 SALES
+
+     EMPNO ENAME          DEPTNO DNAME
+---------- ---------- ---------- --------------
+      7876 ADAMS
+      7900 JAMES              30 SALES
+      7902 FORD               20 RESEARCH
+      7934 MILLER
+                              40 OPERATIONS
+
+16 rows selected.
